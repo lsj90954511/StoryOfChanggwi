@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 public class CreateRoomUI : MonoBehaviour
 {
@@ -77,6 +78,17 @@ public class CreateRoomUI : MonoBehaviour
                 stoneCountButtons[i].image.color = new Color(1f, 1f, 1f, 0f);
             }
         }
+    }
+
+    public void CreateRoom()
+    {
+        var manager = RoomManager.singleton;
+
+        //방 설정
+
+
+        //서버 열기 + 게임 참가
+        manager.StartHost();
     }
 }
 
