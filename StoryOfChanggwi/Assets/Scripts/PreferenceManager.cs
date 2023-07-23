@@ -1,5 +1,15 @@
 // 설정 창 내의 기능 구현 스크립트
 
+/**
+ * 
+ *  [PlayerPrefs 내 설정 키 값 이름]
+ *  배경음 볼륨 값: backgroundVolume (Float)
+ *  효과음 볼륨 값: soundEffectVolume (Float)
+ *  언어 설정: language (String - Korean / English)
+ *  화면 모드: screenMode (String - full / window)
+ *  
+ **/
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,8 +18,11 @@ using UnityEngine.UI;
 
 public class PreferenceManager : MonoBehaviour
 {
-    private Button koreanBtn;       // 언어 설정-한국어 버튼
-    private Button englishBtn;      // 언어 설정-영어 버튼
+    public Slider backgroundVolume;     // 배경음 볼륨
+    public Slider soundEffecfVolume;    // 효과음 볼륨
+
+    public Button koreanBtn;            // 언어 설정-한국어 버튼
+    public Button englishBtn;           // 언어 설정-영어 버튼
 
     public TMP_Text screenModeText;     // 화면 모드 설정 버튼 텍스트
 
@@ -19,9 +32,23 @@ public class PreferenceManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // TODO: 배경음 조작 연동
+    // 배경음 볼륨 조작
+    public void ChangedBgVolumeSlider()
+    {
+        // 설정값 저장
+        PlayerPrefs.SetFloat("backgroundVolume", backgroundVolume.value);
 
-    // TODO: 효과음 조작 연동
+        // TODO: 볼륨 실제로 적용
+    }
+
+    // 효과음 볼륨 조작
+    public void ChangedSFXVolumeSlider()
+    {
+        // 설정값 저장
+        PlayerPrefs.SetFloat("soundEffectVolume", soundEffecfVolume.value);
+
+        // TODO: 볼륨 실제로 적용
+    }
 
     // 언어-한국어 선택
     public void ClickKoreanButton()
@@ -29,7 +56,10 @@ public class PreferenceManager : MonoBehaviour
         koreanBtn.interactable = false;
         englishBtn.interactable = true;
 
-        // TODO: 한국어로 전환
+        // 설정값 저장
+        PlayerPrefs.SetString("language", "Korean");
+
+        // TODO: 한국어 적용
     }
 
     // 언어-영어 선택
@@ -38,21 +68,23 @@ public class PreferenceManager : MonoBehaviour
         englishBtn.interactable = false;
         koreanBtn.interactable = true;
 
-        // TODO: 영어로 전환
+        // 설정값 저장
+        PlayerPrefs.SetString("language", "English");
+
+        // TODO: 영어 적용
     }
 
     // TODO: 화면 설정
     public void ClickScreenModeButton()
     {
-        // TODO: if 조건식 수정 필요 - 파일의 설정 값을 토대로 판단하게끔
         if (screenModeText.text == "전체화면")
         {
             // 창 모드로 변환
             Screen.SetResolution(1440, 810, false);
             screenModeText.text = "창 모드";
 
-            // TODO: 설정값 업데이트
-
+            // 설정값 저장
+            PlayerPrefs.SetString("screenMode", "window");
         }
         else
         {
@@ -60,17 +92,36 @@ public class PreferenceManager : MonoBehaviour
             Screen.SetResolution(1920, 1080, true);
             screenModeText.text = "전체화면";
 
-            // TODO: 설정값 업데이트
-
+            // 설정값 저장
+            PlayerPrefs.SetString("screenMode", "full");
         }
     }
 
     private void Start()
     {
-        this.koreanBtn = GameObject.Find("KoreanButton").GetComponent<Button>();
-        this.englishBtn = GameObject.Find("EnglishButton").GetComponent<Button>();
+        /** 기존 설정값으로 UI 세팅 **/
 
-        // TODO: 기존 설정값으로 세팅
+        backgroundVolume.value = PlayerPrefs.GetFloat("backgroundVolume");
+        soundEffecfVolume.value = PlayerPrefs.GetFloat("soundEffectVolume");
+        
+        if (PlayerPrefs.GetString("language") == "Korean")
+        {
+            koreanBtn.interactable = false;
+            englishBtn.interactable = true;
+        }
+        else if (PlayerPrefs.GetString("language") == "English")
+        {
+            englishBtn.interactable = false;
+            koreanBtn.interactable = true;
+        }
 
+        if (PlayerPrefs.GetString("screenMode") == "full")
+        {
+            screenModeText.text = "전체화면";
+        }
+        else if (PlayerPrefs.GetString("screenMode") == "window")
+        {
+            screenModeText.text = "창 모드";
+        }
     }
 }

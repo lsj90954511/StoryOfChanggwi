@@ -36,8 +36,35 @@ public class StartDirector : MonoBehaviour
     {
         this.preference = GameObject.Find("Canvas").transform.Find("PreferenceBgPanel").gameObject;
 
-        // 해상도 고정 - 처음에는 풀스크린(true)로 설정
-        // TODO: 차후 파일 내의 설정 값을 받아와 설정하는 것으로 수정 필요
-        Screen.SetResolution(1920, 1080, true);
+        /** 설정 파일 생성 **/
+
+        if (!PlayerPrefs.HasKey("backgroundVolume"))    // 배경음 볼륨
+            PlayerPrefs.SetFloat("backgroundVolume", 100.0f);
+
+        if (!PlayerPrefs.HasKey("soundEffectVolume"))   // 효과음 볼륨
+            PlayerPrefs.SetFloat("soundEffectVolume", 100.0f);
+
+        if (!PlayerPrefs.HasKey("language"))            // 언어
+            PlayerPrefs.SetString("language", "Korean");
+
+        if (!PlayerPrefs.HasKey("screenMode"))          // 화면 모드
+            PlayerPrefs.SetString("screenMode", "full");
+        
+        
+        /** 기존 값으로 게임 환경 세팅 **/
+
+        // TODO: 배경음 볼륨 적용
+        // TODO: 효과음 볼륨 적용
+        // TODO: 언어 적용
+
+        // 화면 모드 적용
+        if (PlayerPrefs.GetString("screenMode") == "full")
+        {
+            Screen.SetResolution(1920, 1080, true);
+        }
+        else if (PlayerPrefs.GetString("screenMode") == "window")
+        {
+            Screen.SetResolution(1440, 810, false);
+        }
     }
 }

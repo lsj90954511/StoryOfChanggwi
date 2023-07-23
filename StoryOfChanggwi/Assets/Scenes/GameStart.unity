@@ -1194,5 +1194,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: PreferenceBgPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5181321139621075021, guid: d4c095b6b2ec4fd40b66f5906728843f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600062278037975413, guid: d4c095b6b2ec4fd40b66f5906728843f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600062278230991709, guid: d4c095b6b2ec4fd40b66f5906728843f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600062278612380391, guid: d4c095b6b2ec4fd40b66f5906728843f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600062279073192560, guid: d4c095b6b2ec4fd40b66f5906728843f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4c095b6b2ec4fd40b66f5906728843f, type: 3}
