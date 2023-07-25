@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
 public class OnlineUI : MonoBehaviour
 {
@@ -28,5 +29,18 @@ public class OnlineUI : MonoBehaviour
             gameObject.SetActive(false);
         }
         PlayerSettings.nickname = nicknameInputField.text;
+    }
+
+    public void OnClickEnterGameRoomButton()
+    {
+        if (nicknameInputField.text != "")
+        {
+            var manager = RoomManager.singleton;
+            manager.StartClient();
+        }
+        else
+        {
+            nicknameInputField.text = "¿Õ∏Ì";
+        }
     }
 }
