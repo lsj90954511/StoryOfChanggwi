@@ -19,16 +19,16 @@ public class CreateRoomUI : MonoBehaviour
 
     void Start()
     {
-        //¹æ µ¥ÀÌÅÍ ±âº» ¼¼ÆÃ
+        //ë°© ë°ì´í„° ê¸°ë³¸ ì„¸íŒ…
         roomData = new CreateGameRoomData() { changgwiCount = 2, personCount = 5, stoneCount = 5 };
     }
 
-    //Ã¢±Í ¼ö ¼±ÅÃ ½Ã
+    //ì°½ê·€ ìˆ˜ ì„ íƒ ì‹œ
     public void UpdateChanggwiCount(int count)
     {
         roomData.changgwiCount = count;
 
-        //ÇØ´ç ¹öÆ°ÀÇ Å×µÎ¸® º¸ÀÌ°Ô ÇÔ.(ÃßÈÄ Å×µÎ¸® ÀÌ¹ÌÁö Ãß°¡ÇØ¾ßÇÔ)
+        //í•´ë‹¹ ë²„íŠ¼ì˜ í…Œë‘ë¦¬ ë³´ì´ê²Œ í•¨.(ì¶”í›„ í…Œë‘ë¦¬ ì´ë¯¸ì§€ ì¶”ê°€í•´ì•¼í•¨)
         for(int i = 0; i < changgwiCountButtons.Count; i++)
         {
             if (i == count - 1)
@@ -42,12 +42,12 @@ public class CreateRoomUI : MonoBehaviour
         }
     }
 
-    //ÁÖ¹Î ¼ö ¼±ÅÃ ½Ã
+    //ì£¼ë¯¼ ìˆ˜ ì„ íƒ ì‹œ
     public void UpdatePersonCount(int count)
     {
         roomData.personCount = count;
 
-        //ÇØ´ç ¹öÆ°ÀÇ Å×µÎ¸® º¸ÀÌ°Ô ÇÔ.(ÃßÈÄ Å×µÎ¸® ÀÌ¹ÌÁö Ãß°¡ÇØ¾ßÇÔ)
+        //í•´ë‹¹ ë²„íŠ¼ì˜ í…Œë‘ë¦¬ ë³´ì´ê²Œ í•¨.(ì¶”í›„ í…Œë‘ë¦¬ ì´ë¯¸ì§€ ì¶”ê°€í•´ì•¼í•¨)
         for (int i = 0; i < personCountButtons.Count; i++)
         {
             if (i == count - 1)
@@ -61,12 +61,12 @@ public class CreateRoomUI : MonoBehaviour
         }
     }
 
-    //ºÀÀÎ¼® ¼ö ¼±ÅÃ ½Ã
+    //ë´‰ì¸ì„ ìˆ˜ ì„ íƒ ì‹œ
     public void UpdateStoneCount(int count)
     {
         roomData.stoneCount = count;
 
-        //ÇØ´ç ¹öÆ°ÀÇ Å×µÎ¸® º¸ÀÌ°Ô ÇÔ.(ÃßÈÄ Å×µÎ¸® ÀÌ¹ÌÁö Ãß°¡ÇØ¾ßÇÔ)
+        //í•´ë‹¹ ë²„íŠ¼ì˜ í…Œë‘ë¦¬ ë³´ì´ê²Œ í•¨.(ì¶”í›„ í…Œë‘ë¦¬ ì´ë¯¸ì§€ ì¶”ê°€í•´ì•¼í•¨)
         for (int i = 0; i < stoneCountButtons.Count; i++)
         {
             if (i == count - 1)
@@ -84,18 +84,18 @@ public class CreateRoomUI : MonoBehaviour
     {
         var manager = RoomManager.singleton;
 
-        //¹æ ¼³Á¤
+        //ë°© ì„¤ì •
 
 
-        //¼­¹ö ¿­±â + °ÔÀÓ Âü°¡
+        //ì„œë²„ ì—´ê¸° + ê²Œì„ ì°¸ê°€
         manager.StartHost();
     }
 }
 
-//»õ·Î ¸¸µå´Â ¹æÀÇ µ¥ÀÌÅÍ ÀúÀå, ¸¸µé¾îÁö´Â ¹æ¿¡ µ¥ÀÌÅÍ Àü´Ş
+//ìƒˆë¡œ ë§Œë“œëŠ” ë°©ì˜ ë°ì´í„° ì €ì¥, ë§Œë“¤ì–´ì§€ëŠ” ë°©ì— ë°ì´í„° ì „ë‹¬
 public class CreateGameRoomData
 {
-    public int changgwiCount; //Ã¢±Í ¼ö
-    public int personCount; //ÁÖ¹Î ¼ö
-    public int stoneCount; //ºÀÀÎ¼® ¼ö
+    public int changgwiCount; //ì°½ê·€ ìˆ˜
+    public int personCount; //ì£¼ë¯¼ ìˆ˜
+    public int stoneCount; //ë´‰ì¸ì„ ìˆ˜
 }

@@ -12,19 +12,19 @@ public class OnlineUI : MonoBehaviour
     [SerializeField]
     private GameObject createRoomUI;
 
-    //¹æ ¸¸µé±â ¹öÆ° ´­·¶À» ¶§
+    //ë°© ë§Œë“¤ê¸° ë²„íŠ¼ ëˆŒë €ì„ ë•Œ
     public void OnClickCreateRoomButton()
     {
-        //´Ğ³×ÀÓ ÀÔ·ÂµÇ¾î ÀÖÀ» °æ¿ì ¹æ ¸¸µé±â·Î ³Ñ¾î°¨
+        //ë‹‰ë„¤ì„ ì…ë ¥ë˜ì–´ ìˆì„ ê²½ìš° ë°© ë§Œë“¤ê¸°ë¡œ ë„˜ì–´ê°
         if(nicknameInputField.text != "")
         {
             createRoomUI.SetActive(true);
             gameObject.SetActive(false);
         }
-        //´Ğ³×ÀÓ ÀÔ·ÂµÇÁö ¾Ê¾ÒÀ» °æ¿ì ´Ğ³×ÀÓÀ» ÀÍ¸íÀ¸·Î ¼³Á¤ÇÏ°í ¹æ ¸¸µé±â·Î ³Ñ¾î°¨
+        //ë‹‰ë„¤ì„ ì…ë ¥ë˜ì§€ ì•Šì•˜ì„ ê²½ìš° ë‹‰ë„¤ì„ì„ ìµëª…ìœ¼ë¡œ ì„¤ì •í•˜ê³  ë°© ë§Œë“¤ê¸°ë¡œ ë„˜ì–´ê°
         else
         {
-            nicknameInputField.text = "ÀÍ¸í";
+            nicknameInputField.text = "ìµëª…";
             createRoomUI.SetActive(true);
             gameObject.SetActive(false);
         }
