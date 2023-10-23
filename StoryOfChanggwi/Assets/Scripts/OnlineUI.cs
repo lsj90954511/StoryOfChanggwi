@@ -3,44 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Mirror;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class OnlineUI : MonoBehaviour
 {
     [SerializeField]
-    private TMP_InputField nicknameInputField;
-    [SerializeField]
     private GameObject createRoomUI;
+    [SerializeField]
+    private TMP_InputField nicknameInputField;
+
+    public void awake()
+    {
+        createRoomUI.SetActive(false);
+    }
 
     //방 만들기 버튼 눌렀을 때
     public void OnClickCreateRoomButton()
     {
-        //닉네임 입력되어 있을 경우 방 만들기로 넘어감
-        if(nicknameInputField.text != "")
-        {
-            createRoomUI.SetActive(true);
-            gameObject.SetActive(false);
-        }
-        //닉네임 입력되지 않았을 경우 닉네임을 익명으로 설정하고 방 만들기로 넘어감
-        else
-        {
-            nicknameInputField.text = "익명";
-            createRoomUI.SetActive(true);
-            gameObject.SetActive(false);
-        }
-        PlayerSettings.nickname = nicknameInputField.text;
+        createRoomUI.SetActive(true);
     }
 
-    public void OnClickEnterGameRoomButton()
+    public void NicknameSet()
     {
-        if (nicknameInputField.text != "")
-        {
-            var manager = RoomManager.singleton;
-            manager.StartClient();
-        }
-        else
-        {
-            nicknameInputField.text = "�͸�";
-        }
+        PhotonNetwork.LocalPlayer.NickName = nicknameInputField.text;
     }
 }
