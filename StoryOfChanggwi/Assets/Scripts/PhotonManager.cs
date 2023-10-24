@@ -15,62 +15,101 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject createRoomUI;
 
+    //ë£¸ ëª©ë¡ì„ ì €ì¥í•˜ëŠ” ë”•ì…”ë„ˆë¦¬ ìë£Œí˜•
+    private Dictionary<string, GameObject> roomDict = new Dictionary<string, GameObject>();
+    //ë£¸ì„ í‘œì‹œí•  í”„ë¦¬íŒ¹
+    public GameObject roomPrefab;
+    //ë£¸ í”„ë¦¬íŒ¹ì´ ì°¨ì¼ë“œí™” ì‹œí‚¬ ë¶€ëª¨ ê°ì²´
+    public Transform scrollContent;
+
     private void Awake()
     {
-        //¹æÀåÀÌ ¾À ·Îµù ½Ã ³ª¸ÓÁö »ç¶÷µé ÀÚµ¿ ½ÌÅ©
+        //ë°©ì¥ì´ ì”¬ ë¡œë”© ì‹œ ë‚˜ë¨¸ì§€ ì‚¬ëŒë“¤ ìë™ ì‹±í¬
         PhotonNetwork.AutomaticallySyncScene = true;
 
-        //¼­¹ö Á¢¼Ó
+        //ì„œë²„ ì ‘ì†
         PhotonNetwork.ConnectUsingSettings();
     }
 
     void Start()
     {
-        Debug.Log("00 . Æ÷Åæ ¸Å´ÏÀú ½ÃÀÛ");
+        Debug.Log("00 . í¬í†¤ ë§¤ë‹ˆì € ì‹œì‘");
         PhotonNetwork.LocalPlayer.NickName = nicknameInputField.text;
     }
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("01. Æ÷Åæ ¼­¹ö¿¡ Á¢¼Ó");
+        Debug.Log("01. í¬í†¤ ì„œë²„ì— ì ‘ì†");
 
-        //·Îºñ¿¡ Á¢¼Ó
+        //ë¡œë¹„ì— ì ‘ì†
         PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
     {
-        Debug.Log("02 . ·Îºñ¿¡ Á¢¼Ó");
+        Debug.Log("02 . ë¡œë¹„ì— ì ‘ì†");
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("·£´ı ·ë Á¢¼Ó ½ÇÆĞ");
+        Debug.Log("ëœë¤ ë£¸ ì ‘ì† ì‹¤íŒ¨");
 
-        //¹æ »ı¼º Ã¢ ³ª¿È
+        //ë°© ìƒì„± ì°½ ë‚˜ì˜´
         createRoomUI.SetActive(true);
     }
 
     public override void OnCreatedRoom()
     {
-        Debug.Log("03 . ¹æ »ı¼º ¿Ï·á");
+        Debug.Log("03 . ë°© ìƒì„± ì™„ë£Œ");
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("04 . ¹æ ÀÔÀå ¿Ï·á");
+        Debug.Log("04 . ë°© ì…ì¥ ì™„ë£Œ");
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LoadLevel("GamePlay");
         }
     }
 
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        GameObject tempRoom = null;
+        foreach (var room in roomList)
+        {
+            //ë£¸ì´ ì‚­ì œëœ ê²½ìš°
+            if (room.RemovedFromList == true)
+            {
+                roomDict.TryGetValue(room.Name, out tempRoom);
+                Destroy(tempRoom);
+                roomDict.Remove(room.Name);
+            }
+            //ë£¸ ì •ë³´ê°€ ë³€ê²½ëœ ê²½ìš°
+            else
+            {
+                //ë£¸ì´ ì²˜ìŒ ìƒì„±ëœ ê²½ìš°
+                if (roomDict.ContainsKey(room.Name) == false)
+                {
+                    GameObject _room = Instantiate(roomPrefab, scrollContent);
+                    _room.GetComponent<RoomData>().RoomInfo = room;
+                    roomDict.Add(room.Name, _room);
+                }
+                //ë£¸ ì •ë³´ë¥¼ ê°±ì‹ í•˜ëŠ” ê²½ìš°
+                else
+                {
+                    roomDict.TryGetValue(room.Name, out tempRoom);
+                    tempRoom.GetComponent<RoomData>().RoomInfo = room;
+                }
+            }
+        }
+    }
+
     public void OnRandomBtn()
     {
-        //´Ğ³×ÀÓ ºñ¾î ÀÖÀ» °æ¿ì
+        //ë‹‰ë„¤ì„ ë¹„ì–´ ìˆì„ ê²½ìš°
         if (nicknameInputField.text == "")
         {
-            nicknameInputField.text = "ÀÍ¸í";
+            nicknameInputField.text = "ìµëª…";
         }
 
         //PlayerPrefs.SetString("USER_NICKNAME", nicknameInputField.text);

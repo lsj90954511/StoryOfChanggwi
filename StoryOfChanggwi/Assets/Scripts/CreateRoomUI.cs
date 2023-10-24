@@ -94,8 +94,13 @@ public class CreateRoomUI : MonoBehaviour
 
     public void CreateRoom()
     {
+        RoomOptions ro = new RoomOptions();
+        ro.IsOpen = true;
+        ro.IsVisible = true;
+        ro.MaxPlayers = roomData.changgwiCount + roomData.personCount + roomData.stoneCount;
+
         //PhotonNetwork.JoinLobby();
-        PhotonNetwork.CreateRoom(roomData.roomname, new RoomOptions { MaxPlayers = roomData.changgwiCount + roomData.personCount + roomData.stoneCount }, null);
+        PhotonNetwork.CreateRoom(roomData.roomname, ro);
     }
 }
 
