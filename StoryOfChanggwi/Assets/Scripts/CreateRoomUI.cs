@@ -5,35 +5,41 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+//using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class CreateRoomUI : MonoBehaviour
+public class CreateRoomUI : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private List<Button> changgwiCountButtons;
 
-    [SerializeField]
+    /*[SerializeField]
     private List<Button> personCountButtons;
 
     [SerializeField]
-    private List<Button> stoneCountButtons;
+    private List<Button> stoneCountButtons;*/
 
     [SerializeField]
     private TMP_InputField roomnameInputField;
 
     private CreateGameRoomData roomData;
+    //private Hashtable CP;
+    public static int changgwiCnt = 0;
 
     void Start()
     {
         //roomnameInputField = GameObject.Find("RoomName").GetComponent<TMP_InputField>();
 
         //방 데이터 기본 세팅
-        roomData = new CreateGameRoomData() { roomname = "창귀뎐", changgwiCount = 2, personCount = 5, stoneCount = 5 };
+        roomData = new CreateGameRoomData() { roomname = "창귀뎐", changgwiCount = 2/*, personCount = 5, stoneCount = 5*/ };
+
+        
     }
 
     //창귀 수 선택 시
     public void UpdateChanggwiCount(int count)
     {
         roomData.changgwiCount = count;
+        changgwiCnt = count;
 
         //해당 버튼의 테두리 보이게 함.(추후 테두리 이미지 추가해야함)
         for(int i = 0; i < changgwiCountButtons.Count; i++)
@@ -48,7 +54,7 @@ public class CreateRoomUI : MonoBehaviour
             }
         }
     }
-
+    /*
     //주민 수 선택 시
     public void UpdatePersonCount(int count)
     {
@@ -85,7 +91,7 @@ public class CreateRoomUI : MonoBehaviour
                 stoneCountButtons[i].image.color = new Color(1f, 1f, 1f, 0f);
             }
         }
-    }
+    }*/
 
     public void UpdateRoomName()
     {
@@ -97,7 +103,9 @@ public class CreateRoomUI : MonoBehaviour
         RoomOptions ro = new RoomOptions();
         ro.IsOpen = true;
         ro.IsVisible = true;
-        ro.MaxPlayers = roomData.changgwiCount + roomData.personCount + roomData.stoneCount;
+        ro.MaxPlayers = 6/*roomData.changgwiCount + roomData.personCount + roomData.stoneCount*/;
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { "changgwiCnt", roomData.changgwiCount } });
+        //CP = PhotonNetwork.CurrentRoom.CustomProperties;
 
         //PhotonNetwork.JoinLobby();
         PhotonNetwork.CreateRoom(roomData.roomname, ro);
@@ -109,6 +117,6 @@ public class CreateGameRoomData
 {
     public string roomname; //방 이름
     public int changgwiCount; //창귀 수
-    public int personCount; //주민 수
-    public int stoneCount; //봉인석 수
+   //public int personCount; //주민 수
+    //public int stoneCount; //봉인석 수
 }
