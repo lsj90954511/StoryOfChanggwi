@@ -19,7 +19,7 @@ public class StartDirector : MonoBehaviour
     public void ClickStartButton()
     {
         Debug.Log("게임 화면으로 이동!");
-        // SceneManager.LoadScene("게임화면");
+        SceneManager.LoadScene("Main");
     }
 
     // 게임 종료
