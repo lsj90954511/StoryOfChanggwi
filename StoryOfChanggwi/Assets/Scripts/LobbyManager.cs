@@ -6,7 +6,7 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class LobbyManager : MonoBehaviourPun
+public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private GameObject startBtn;
@@ -14,6 +14,12 @@ public class LobbyManager : MonoBehaviourPun
     private GameObject lobbyUI;
     [SerializeField]
     private TMP_Text startMessage;
+    [SerializeField]
+    private List<Image> imgs;
+    [SerializeField]
+    private List<TMP_Text> names;
+    [SerializeField]
+    private Sprite[] sprites;
 
     private PhotonView PV;
 
@@ -25,6 +31,7 @@ public class LobbyManager : MonoBehaviourPun
         return PhotonNetwork.LocalPlayer.IsMasterClient;
     }
 
+
     void Start()
     {
         PV = GetComponent<PhotonView>();
@@ -33,6 +40,8 @@ public class LobbyManager : MonoBehaviourPun
 
         //마스터 플레이어에게만 시작 버튼 보이게 함
         if (Master() && PV.IsMine == true) startBtn.SetActive(true);
+
+        PV.RPC("SetPlayer", RpcTarget.AllViaServer);
     }
 
     void Update()
@@ -61,6 +70,7 @@ public class LobbyManager : MonoBehaviourPun
         {
             PV.RPC("StartGame", RpcTarget.AllViaServer);
         }
+        //playerUpdate();
     }
 
     public void ClickStartBtn()
@@ -68,6 +78,24 @@ public class LobbyManager : MonoBehaviourPun
         if (PhotonNetwork.CurrentRoom.PlayerCount <= CreateRoomUI.changgwiCnt) return;
         //startBtn.SetActive(false);
         started = true;
+    }
+
+    public void playerUpdate()
+    {
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            //닉네임 세팅
+            names[i].text = PhotonNetwork.PlayerList[i].NickName;
+            //이미지 세팅
+            int index = Random.Range(0, sprites.Length);
+            Sprite select = sprites[index];
+            imgs[i].sprite = select;
+        }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        PV.RPC("SetPlayer", RpcTarget.AllViaServer);
     }
 
     //Start라는 텍스트를 화면에 보여줌
@@ -83,5 +111,23 @@ public class LobbyManager : MonoBehaviourPun
     public void StartGame()
     {
         lobbyUI.SetActive(false);
+    }
+
+    //로비에 플레이어 세팅
+    [PunRPC]
+    public void SetPlayer()
+    {
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (names[i].text == "" && imgs[i].sprite == sprites[0])
+            {
+                //닉네임 세팅
+                names[i].text = PhotonNetwork.PlayerList[i].NickName;
+                //이미지 세팅
+                int index = Random.Range(1, sprites.Length);
+                Sprite select = sprites[index];
+                imgs[i].sprite = select;
+            }
+        }
     }
 }
