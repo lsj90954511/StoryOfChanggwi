@@ -19,7 +19,9 @@ public class UI_Inventory : MonoBehaviour
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
-        inventory.OnItemListChaenged += Inventory_OnItemListChanged;
+
+        inventory.OnItemListChanged += Inventory_OnItemListChanged;
+
         RefreshInventoryItems();
     }
 
@@ -30,23 +32,27 @@ public class UI_Inventory : MonoBehaviour
 
     private void RefreshInventoryItems()
     {
-        foreach(Transform child in itemSlotContainer)
+        foreach (Transform child in itemSlotContainer)
         {
             if (child == itemSlotTemplate) continue;
             Destroy(child.gameObject);
         }
+
         int x = 0;
         float itemSlotCellSize = 160f;
-        foreach(Item item in inventory.GetItemList())
+        foreach (Item item in inventory.GetItemList())
         {
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
 
+
+
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, 0);
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             image.sprite = item.GetSprite();
+
             TextMeshProUGUI uiText = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
-            if(item.amount > 1)
+            if (item.amount > 1)
             {
                 uiText.SetText(item.amount.ToString());
             }

@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
+[Serializable]
 public class Item
 {
     public enum ItemType
@@ -20,9 +21,9 @@ public class Item
         switch (itemType)
         {
             default:
-                case ItemType.PlayerStone: return ItemAssets.Instance.playerStoneSprite;
-                case ItemType.PlayerPlum: return ItemAssets.Instance.playerPlumSprite;
-                case ItemType.MonsterStone: return ItemAssets.Instance.monsterStoneSprite;
+            case ItemType.PlayerStone: return ItemAssets.Instance.playerStoneSprite;
+            case ItemType.PlayerPlum: return ItemAssets.Instance.playerPlumSprite;
+            case ItemType.MonsterStone: return ItemAssets.Instance.monsterStoneSprite;
         }
     }
 

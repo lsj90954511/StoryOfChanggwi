@@ -15,7 +15,6 @@ public class PickUp : MonoBehaviour
     {
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
-        
     }
 
     private void Update()
@@ -61,4 +60,5 @@ public class PickUp : MonoBehaviour
             }
         }
     }
+
 }

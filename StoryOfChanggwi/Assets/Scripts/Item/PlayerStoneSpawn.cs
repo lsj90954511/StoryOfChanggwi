@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStoneSpawn : MonoBehaviour
 {
     [SerializeField] List<GameObject> playerStoneLocation;
-    public List<int> activePlayerStoneList;
+    List<int> activePlayerStoneList = new List<int>();
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +13,13 @@ public class PlayerStoneSpawn : MonoBehaviour
         {
             playerstone.SetActive(false);
         }
-        
+        CreateRandomNum(10, 5);
+        for(int i = 0; i < activePlayerStoneList.Count; i++)
+        {
+            playerStoneLocation[activePlayerStoneList[i]].SetActive(true);
+            Debug.Log(activePlayerStoneList[i]);
+        }
+
     }
 
     void StartSpawning()
@@ -21,11 +27,11 @@ public class PlayerStoneSpawn : MonoBehaviour
 
     }
 
-    void CreateRandomNum(int max)
+    void CreateRandomNum(int max, int cnt)
     {
         int currentNumber = Random.Range(0, max);
 
-        for(int i = 0; i < max;)
+        for(int i = 0; i < cnt;)
         {
             if(activePlayerStoneList.Contains(currentNumber))
             {

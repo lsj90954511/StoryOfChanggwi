@@ -1,11 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Inventory
 {
-    public event EventHandler OnItemListChaenged;
+    public event EventHandler OnItemListChanged;
 
     private List<Item> itemList;
 
@@ -39,7 +39,7 @@ public class Inventory
             itemList.Add(item);
         }
 
-       OnItemListChaenged?.Invoke(this, EventArgs.Empty);
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     
@@ -66,7 +66,7 @@ public class Inventory
             itemList.Add(item);
         }
 
-        OnItemListChaenged?.Invoke(this, EventArgs.Empty);
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
     
 
