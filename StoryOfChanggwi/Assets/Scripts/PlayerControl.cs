@@ -13,11 +13,11 @@ public class PlayerControl : MonoBehaviour
     public float moveSpeed = 5.0f;
 
     // 컴포넌트
-    private GameObject player;
+    public GameObject player;
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
-    private Vector2 movement;
     private Animator animator;
+    private Vector2 movement;
 
     private void Awake()
     {
@@ -25,7 +25,6 @@ public class PlayerControl : MonoBehaviour
 
         rb = GetComponentInChildren<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -45,11 +44,23 @@ public class PlayerControl : MonoBehaviour
             animator.SetBool("IsWalk", true);
         else if (movement.magnitude == 0 && animator.GetBool("IsWalk"))
             animator.SetBool("IsWalk", false);
+
+        // 아이템 사용
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            // 추가
+        }
     }
 
     private void FixedUpdate()
     {
         // 움직임 적용
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void SetModel(GameObject _model)
+    {
+        sprite = _model.GetComponent<SpriteRenderer>();
+        animator = _model.GetComponent<Animator>();
     }
 }
