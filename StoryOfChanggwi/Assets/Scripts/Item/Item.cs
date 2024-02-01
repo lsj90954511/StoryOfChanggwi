@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// 아이템 : ItemType, Sprite, IsStackable 관리
 [Serializable]
 public class Item
 {

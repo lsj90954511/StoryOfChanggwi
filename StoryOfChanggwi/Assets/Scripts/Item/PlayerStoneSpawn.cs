@@ -6,7 +6,8 @@ public class PlayerStoneSpawn : MonoBehaviour
 {
     [SerializeField] List<GameObject> playerStoneLocation;
     List<int> activePlayerStoneList = new List<int>();
-    // Start is called before the first frame update
+
+
     void Start()
     {
         foreach (GameObject playerstone in playerStoneLocation)
@@ -19,12 +20,34 @@ public class PlayerStoneSpawn : MonoBehaviour
             playerStoneLocation[activePlayerStoneList[i]].SetActive(true);
             Debug.Log(activePlayerStoneList[i]);
         }
+        InvokeRepeating("StartSpawning", 10f, 10f);
+    }
 
+    private void Update()
+    {
+        if(activePlayerStoneList.Count >= playerStoneLocation.Count)
+        {
+            CancelInvoke();
+        }
     }
 
     void StartSpawning()
     {
-
+        if(activePlayerStoneList.Count + 2 < 10)
+        {
+            CreateRandomNum(10, 2);
+            playerStoneLocation[activePlayerStoneList[activePlayerStoneList.Count - 1]].SetActive(true);
+            Debug.Log(activePlayerStoneList[activePlayerStoneList.Count - 1]);
+            playerStoneLocation[activePlayerStoneList[activePlayerStoneList.Count - 2]].SetActive(true);
+            Debug.Log(activePlayerStoneList[activePlayerStoneList.Count - 2]);
+        }
+        else
+        {
+            CreateRandomNum(10, 1);
+            playerStoneLocation[activePlayerStoneList[activePlayerStoneList.Count - 1]].SetActive(true);
+            Debug.Log(activePlayerStoneList[activePlayerStoneList.Count - 1]);
+        }
+        
     }
 
     void CreateRandomNum(int max, int cnt)
