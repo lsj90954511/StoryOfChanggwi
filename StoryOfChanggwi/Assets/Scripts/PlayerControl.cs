@@ -19,6 +19,8 @@ public class PlayerControl : MonoBehaviour
     private Animator animator;
     private Vector2 movement;
 
+    // 봉인석
+    private Coroutine stoneCo;
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -50,6 +52,7 @@ public class PlayerControl : MonoBehaviour
         {
             // 추가
         }
+
     }
 
     private void FixedUpdate()
@@ -62,5 +65,41 @@ public class PlayerControl : MonoBehaviour
     {
         sprite = _model.GetComponent<SpriteRenderer>();
         animator = _model.GetComponent<Animator>();
+    }
+
+    // 스톤 활성화
+    public void ActivateStone(Stone _stone)
+    {
+        // 봉인석 활성화
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            // 활성화
+            _stone.Activate(1);
+            print("플러스");
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            // 비활성화
+            _stone.Activate(-1);
+            print("마이너스");
+        }
+    }
+
+    public void EnterStone(Stone _stone)
+    {
+        stoneCo = StartCoroutine(StoneCo(_stone));
+    }
+    public void ExitStone()
+    {
+        StopCoroutine(stoneCo);
+    }
+
+    public IEnumerator StoneCo(Stone _stone)
+    {
+        while (true)
+        {
+            ActivateStone(_stone);
+            yield return null;
+        }
     }
 }
