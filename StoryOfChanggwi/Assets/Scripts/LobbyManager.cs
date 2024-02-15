@@ -68,6 +68,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (!started && showedMessage)
         {
+            
             PV.RPC("StartGame", RpcTarget.AllViaServer);
         }
         //playerUpdate();
@@ -75,8 +76,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void ClickStartBtn()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount <= CreateRoomUI.changgwiCnt) return;
-        //startBtn.SetActive(false);
         started = true;
     }
 
