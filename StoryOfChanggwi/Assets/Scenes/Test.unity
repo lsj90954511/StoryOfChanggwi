@@ -285,6 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161040033}
   - component: {fileID: 161040035}
+  - component: {fileID: 161040036}
   - component: {fileID: 161040034}
   m_Layer: 0
   m_Name: PlayerStone
@@ -386,6 +387,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &161040036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161040032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &199934391
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 199934392}
   - component: {fileID: 199934394}
+  - component: {fileID: 199934395}
   - component: {fileID: 199934393}
   m_Layer: 0
   m_Name: PlayerStone
@@ -497,6 +511,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &199934395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199934391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &354506598
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 533295916}
   - component: {fileID: 533295918}
+  - component: {fileID: 533295919}
   - component: {fileID: 533295917}
   m_Layer: 0
   m_Name: PlayerStone
@@ -951,6 +978,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &533295919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533295915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &537711008
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +1000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 537711009}
   - component: {fileID: 537711011}
+  - component: {fileID: 537711012}
   - component: {fileID: 537711010}
   m_Layer: 0
   m_Name: PlayerStone
@@ -1062,6 +1102,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &537711012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537711008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &628188941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 628188942}
   - component: {fileID: 628188944}
+  - component: {fileID: 628188945}
   - component: {fileID: 628188943}
   m_Layer: 0
   m_Name: PlayerStone
@@ -1173,6 +1226,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &628188945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628188941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &743409731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743409732}
   - component: {fileID: 743409734}
+  - component: {fileID: 743409735}
   - component: {fileID: 743409733}
   m_Layer: 0
   m_Name: PlayerStone
@@ -1284,6 +1350,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &743409735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743409731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &840550905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,6 +1900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876879460}
   - component: {fileID: 876879462}
+  - component: {fileID: 876879463}
   - component: {fileID: 876879461}
   m_Layer: 0
   m_Name: PlayerStone
@@ -1923,6 +2002,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &876879463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876879459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1294827707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,6 +2024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1294827708}
   - component: {fileID: 1294827710}
+  - component: {fileID: 1294827711}
   - component: {fileID: 1294827709}
   m_Layer: 0
   m_Name: PlayerStone
@@ -2034,6 +2126,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1294827711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294827707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1309782707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,6 +2300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1554416218}
   - component: {fileID: 1554416220}
+  - component: {fileID: 1554416221}
   - component: {fileID: 1554416219}
   m_Layer: 0
   m_Name: PlayerStone
@@ -2297,6 +2402,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1554416221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554416217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1835955377
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,6 +2462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1903499428}
   - component: {fileID: 1903499430}
+  - component: {fileID: 1903499431}
   - component: {fileID: 1903499429}
   m_Layer: 0
   m_Name: PlayerStone
@@ -2446,6 +2564,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1903499431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903499427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892800e644b9684bb0eb2c9a370a3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2118545935
 GameObject:
   m_ObjectHideFlags: 0

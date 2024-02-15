@@ -6,6 +6,7 @@ public class PlayerStoneSpawn : MonoBehaviour
 {
     [SerializeField] List<GameObject> playerStoneLocation;
     List<int> activePlayerStoneList = new List<int>();
+    bool invokeStart;
 
 
     void Start()
@@ -20,6 +21,7 @@ public class PlayerStoneSpawn : MonoBehaviour
             playerStoneLocation[activePlayerStoneList[i]].SetActive(true);
             Debug.Log(activePlayerStoneList[i]);
         }
+        invokeStart = true;
         InvokeRepeating("StartSpawning", 10f, 10f);
     }
 
@@ -27,8 +29,23 @@ public class PlayerStoneSpawn : MonoBehaviour
     {
         if(activePlayerStoneList.Count >= playerStoneLocation.Count)
         {
+            Debug.Log("봉인석 소환 반복 중단");
             CancelInvoke();
+            invokeStart = false;
         }
+        if(invokeStart == false && activePlayerStoneList.Count > 0)
+        {
+            invokeStart = true;
+            Debug.Log("봉인석 소환 반복 시작");
+            InvokeRepeating("StartSpawning", 10f, 10f);
+        }
+    }
+
+    public void FindStone(GameObject gameObject)
+    {
+        int index = playerStoneLocation.IndexOf(gameObject);
+        activePlayerStoneList.Remove(index);
+        Debug.Log(index);
     }
 
     void StartSpawning()
