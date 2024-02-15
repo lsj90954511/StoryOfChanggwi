@@ -8,12 +8,12 @@ using Photon.Realtime;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
+    private readonly string gameVersion = "v1.0";
+    private string userId = "abc";
     [SerializeField]
     private TMP_InputField nicknameInputField;
     [SerializeField]
-    private TMP_InputField roomnameInputFieldI;
-    [SerializeField]
-    private GameObject createRoomUI;
+    private TMP_InputField roomnameInputField;
 
     //룸 목록을 저장하는 딕셔너리 자료형
     private Dictionary<string, GameObject> roomDict = new Dictionary<string, GameObject>();
@@ -27,6 +27,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //방장이 씬 로딩 시 나머지 사람들 자동 싱크
         PhotonNetwork.AutomaticallySyncScene = true;
 
+        //게임 버전 지정
+        PhotonNetwork.GameVersion = gameVersion;
+
         //서버 접속
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -34,7 +37,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     void Start()
     {
         Debug.Log("00 . 포톤 매니저 시작");
-        PhotonNetwork.LocalPlayer.NickName = nicknameInputField.text;
+        userId = PlayerPrefs.GetString("USER_ID", $"USER_{Random.Range(0, 100):00}");
+        nicknameInputField.text = userId;
+        PhotonNetwork.NickName = userId;
     }
 
     public override void OnConnectedToMaster()
@@ -54,8 +59,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("랜덤 룸 접속 실패");
 
-        //방 생성 창 나옴
-        createRoomUI.SetActive(true);
+        //룸 속성 설정
+        RoomOptions ro = new RoomOptions();
+        ro.IsOpen = true;
+        ro.IsVisible = true;
+        ro.MaxPlayers = 6;
+
+        roomnameInputField.text = $"Room_{Random.Range(1, 100):000}";
+
+        //룸 생성, 자동 입장
+        PhotonNetwork.CreateRoom("room_1", ro);
     }
 
     public override void OnCreatedRoom()
@@ -70,6 +83,37 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("GamePlay");
         }
+    }
+
+    public void OnRandomBtn()
+    {
+        if (string.IsNullOrEmpty(nicknameInputField.text))
+        {
+            //랜덤 아이디 부여
+            userId = $"USER_{Random.Range(0, 100):00}";
+            nicknameInputField.text = userId;
+        }
+
+        PlayerPrefs.SetString("USER_ID", nicknameInputField.text);
+        PhotonNetwork.NickName = nicknameInputField.text;
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public void OnMakeRoomBtn()
+    {
+        //룸 속성 설정
+        RoomOptions ro = new RoomOptions();
+        ro.IsOpen = true;
+        ro.IsVisible = true;
+        ro.MaxPlayers = 6;
+
+        if (string.IsNullOrEmpty(roomnameInputField.text))
+        {
+            //랜덤 룸 이름 부여
+            roomnameInputField.text = $"ROOM_{Random.Range(1, 100):000}";
+        }
+
+        PhotonNetwork.CreateRoom(roomnameInputField.text, ro);
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -104,7 +148,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnRandomBtn()
+    /*public void OnRandomBtn()
     {
         //닉네임 비어 있을 경우
         if (nicknameInputField.text == "")
@@ -115,5 +159,5 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //PlayerPrefs.SetString("USER_NICKNAME", nicknameInputField.text);
         PhotonNetwork.NickName = nicknameInputField.text;
         PhotonNetwork.JoinRandomRoom();
-    }
+    }*/
 }
