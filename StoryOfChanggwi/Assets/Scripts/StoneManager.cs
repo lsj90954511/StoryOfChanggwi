@@ -84,12 +84,14 @@ public class StoneManager : MonoBehaviour
 
     public void UpdateStone(bool _isActive)
     {
+        print("In UpdateStone Method");
+
         if (_isActive)
             activeCount++;
         else
             activeCount--;
 
-        if(activeCount == citizenCount)
+        if(activeCount >= citizenCount)
         {
             // Win
             print("승리");

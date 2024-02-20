@@ -46,19 +46,28 @@ public class Stone : MonoBehaviour
         if (count >= maxCount)
         {
             // Activate
+            if (!isActive)
+            {
+                print("활성화");
+
+                isActive = true;
+                sManager.UpdateStone(isActive);
+            }
+
             count = maxCount;
-            isActive = true;
         }
-        else
+        else if (count < maxCount)
         {
             if (isActive)
             {
+                print("비활성화");
+
                 isActive = false;
+                sManager.UpdateStone(isActive);
             }
             if (count <= -maxCount)
                 count = -maxCount;
         }
-        sManager.UpdateStone(isActive);
 
 
         if (count > 0)       // Plus

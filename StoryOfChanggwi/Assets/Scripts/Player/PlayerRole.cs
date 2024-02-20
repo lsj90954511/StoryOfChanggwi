@@ -7,13 +7,13 @@ public class PlayerRole : MonoBehaviour
     public enum Role
     {
         changgui,
-        changgui_tiger,
-        ghost,
         woodman,
         bobusang,
         seonbi,
         monk,
-        anagne
+        anagne,
+        changgui_tiger,
+        //ghost,
     }
 
     private const int roleCount = 8;

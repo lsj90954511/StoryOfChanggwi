@@ -1413,9 +1413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bb4f00dc188544d81518aca577744c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStoneSprite: {fileID: 21300000, guid: 8052b8e7c18e3234e9e97318f0c0b9cd, type: 3}
-  playerPlumSprite: {fileID: 21300000, guid: 688225947666b6d4c87ae29317504bcb, type: 3}
-  monsterStoneSprite: {fileID: 21300000, guid: 15bae59da91c8ee43a9914be37db39a6, type: 3}
 --- !u!4 &169623420
 Transform:
   m_ObjectHideFlags: 0
@@ -4005,7 +4002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stoneLocation: []
   stones: []
-  citizenCount: 3
+  citizenCount: 8
   stonePrefab: {fileID: 0}
 --- !u!1 &585674120
 GameObject:
@@ -4078,10 +4075,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861e2e3410c5e38498b9e52d8f901c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiInventory: {fileID: 1131347940}
-  isPickUp: 0
-  isPlayerPlumExist: 0
-  pickUpItem: {fileID: 0}
 --- !u!61 &594976609
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4251,7 +4244,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c8c50f35c2b58984c95cefc7c24ff6b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7883,8 +7876,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f83ea806cbc1ad419d9d58283195f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlotContainer: {fileID: 0}
-  itemSlotTemplate: {fileID: 0}
 --- !u!1 &1135613216
 GameObject:
   m_ObjectHideFlags: 0
