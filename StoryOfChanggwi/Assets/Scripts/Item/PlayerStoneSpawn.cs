@@ -26,31 +26,26 @@ public class PlayerStoneSpawn : MonoBehaviour
     }
 
     private void Update()
-    {
-        if(activePlayerStoneList.Count >= playerStoneLocation.Count)
-        {
-            Debug.Log("봉인석 소환 반복 중단");
-            CancelInvoke();
-            invokeStart = false;
-        }
-        if(invokeStart == false && activePlayerStoneList.Count > 0)
+    {   
+        if(activePlayerStoneList.Count < 10 && invokeStart == false)
         {
             invokeStart = true;
             Debug.Log("봉인석 소환 반복 시작");
             InvokeRepeating("StartSpawning", 10f, 10f);
         }
+        
     }
 
     public void FindStone(GameObject gameObject)
     {
         int index = playerStoneLocation.IndexOf(gameObject);
         activePlayerStoneList.Remove(index);
-        Debug.Log(index);
+        //Debug.Log(index);
     }
 
     void StartSpawning()
     {
-        if(activePlayerStoneList.Count + 2 < 10)
+        if(activePlayerStoneList.Count + 2 <= 10)
         {
             CreateRandomNum(10, 2);
             playerStoneLocation[activePlayerStoneList[activePlayerStoneList.Count - 1]].SetActive(true);
@@ -64,7 +59,14 @@ public class PlayerStoneSpawn : MonoBehaviour
             playerStoneLocation[activePlayerStoneList[activePlayerStoneList.Count - 1]].SetActive(true);
             Debug.Log(activePlayerStoneList[activePlayerStoneList.Count - 1]);
         }
-        
+
+        if (activePlayerStoneList.Count >= playerStoneLocation.Count)
+        {
+            Debug.Log("봉인석 소환 반복 중단");
+            CancelInvoke();
+            invokeStart = false;
+        }
+
     }
 
     void CreateRandomNum(int max, int cnt)

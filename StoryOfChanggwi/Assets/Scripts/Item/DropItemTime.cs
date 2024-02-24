@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class DropItemTime : MonoBehaviour
 {
-    float ttl = 10f; //시간 경과
+    float ttl = 300f; //시간 경과
     PlayerStoneSpawn playerStoneSpawn;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
         playerStoneSpawn = FindObjectOfType<PlayerStoneSpawn>();
     }
 
