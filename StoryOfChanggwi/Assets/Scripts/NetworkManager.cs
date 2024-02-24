@@ -18,12 +18,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
-
+        /*
         //닉네임 입력되지 않았을 경우 닉네임을 익명으로 설정
         if (nicknameInputField.text == "")
         {
             nicknameInputField.text = "익명";
-        }
+        }*/
         PhotonNetwork.LocalPlayer.NickName = nicknameInputField.text;
 
         //OnlineUI로 넘어감

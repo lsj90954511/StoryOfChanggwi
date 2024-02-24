@@ -4,117 +4,138 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using TMPro;
 
-public class PlayerControl : MonoBehaviourPunCallbacks
+public class PlayerControl : MonoBehaviour
 {
-    private PhotonView photonView;
-    //public string role = "None";//역할 저장. 역할 : changgwi, citizen, ghost
+    private PhotonView pv;
+    public TMP_Text NicknameText;
+    GameObject manager;
 
-    //플레이어 스프라이트
-    public SpriteRenderer playerSpriteRenderer;
-    [SerializeField]
-    private Sprite[] sprites;
+    // 플레이어 움직임
+    public float moveSpeed = 5.0f;
 
+    // 컴포넌트
+    public GameObject player;
+    private Rigidbody2D rb;
+    private SpriteRenderer sprite;
+    private Animator animator;
+    private Vector2 movement;
+
+    // 봉인석
+    private Coroutine stoneCo;
     private void Awake()
     {
-        photonView = GetComponent<PhotonView>();
-        playerSpriteRenderer = GetComponent<SpriteRenderer>();
-    }
-    void Start()
-    {
-        /*if(photonView.IsMine)
-        {
-            object roleObj;
-            //PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("Role", out roleObj);
-            //roleObj = (string)roleObj;
-            //Debug.Log("Player role: " + role);
-            
-            if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("Role", out roleObj))
-            {
-                role = (string)roleObj;
-                if (role == "changgwi")
-                {
-                    playerSpriteRenderer.sprite = sprites[5]; // 술래 스프라이트 설정
-                }
-                else
-                {
-                    int index = Random.Range(0, 5);
-                    playerSpriteRenderer.sprite = sprites[index]; // 시민 스프라이트 설정
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Role not set for player!");
-            }
-        }*/
-    }
-    /*
-    // 역할을 설정하는 메서드
-    public void SetRole(string newRole)
-    {
-        role = newRole;
-        Debug.Log("플레이어의 역할이 설정되었습니다: " + role);
-        // 역할에 따른 동작을 수행할 수 있음
+        pv = GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
+        rb = GetComponentInChildren<Rigidbody2D>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        manager = GameObject.Find("GameManager");
+
+        //닉네임
+        NicknameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
+        NicknameText.color = pv.IsMine ? Color.green : Color.red;
     }
 
-    // Player 객체와 게임 오브젝트 간의 매핑을 추가합니다.
-    public static void AddPlayerGameObjectMapping(Player player, GameObject gameObject)
+    private void Update()
     {
-        if (!playerGameObjectMap.ContainsKey(player.ActorNumber))
-        {
-            playerGameObjectMap.Add(player.ActorNumber, gameObject);
-        }
-    }
+        if (!pv.IsMine && PhotonNetwork.IsConnected)
+            return;
 
-    // ActorNumber에 해당하는 플레이어의 게임 오브젝트를 반환합니다.
-    public static GameObject GetPlayerGameObject(int actorNumber)
-    {
-        if (playerGameObjectMap.ContainsKey(actorNumber))
+        // 움직임 입력
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        float axis_x = Input.GetAxisRaw("Horizontal");
+        float axis_y = Input.GetAxisRaw("Vertical");
+
+        // 방향 전환
+        if (axis_x != 0 || axis_y != 0)
         {
-            return playerGameObjectMap[actorNumber];
+            if (axis_x != 0)
+                pv.RPC("FlipXRPC", RpcTarget.AllBuffered, axis_x);
+            animator.SetBool("IsWalk", true); //애니메이션
         }
         else
+            animator.SetBool("IsWalk", false);
+
+        // 아이템 사용
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            Debug.LogError("No GameObject found for ActorNumber: " + actorNumber);
-            return null;
+            // 추가
         }
     }
 
-    /*public void SetPlayerRole()
+    //방향 전환 RPC 함수
+    [PunRPC]
+    void FlipXRPC(float axis)
     {
-        //창귀 플레이어 선정
-        //모든 플레이어 리스트 가져오기
-        Player[] players = PhotonNetwork.PlayerList;
-        //랜덤 창귀 선택
-        Player randomPlayer = players[Random.Range(0, players.Length)];
-        //RPC로 창귀 역할 설정
-        photonView.RPC("SetIsChanggwi", RpcTarget.AllBuffered, randomPlayer.ActorNumber);
-        //나머지 플레이어는 주민으로 설정
-        foreach (Player player in players)
+        sprite.flipX = axis == 1;
+    }
+
+    private void FixedUpdate()
+    {
+        // 움직임 적용
+        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void SetModel(GameObject _model)
+    {
+        sprite = _model.GetComponent<SpriteRenderer>();
+        animator = _model.GetComponent<Animator>();
+    }
+
+    // 스톤 활성화
+    public void ActivateStone(Stone _stone)
+    {
+        // 봉인석 활성화
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (player != randomPlayer)
-            {
-                photonView.RPC("SetIsChanggwi", RpcTarget.AllBuffered, player.ActorNumber);
-            }
+            // 활성화
+            _stone.Activate(1);
+            print("플러스");
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            // 비활성화
+            _stone.Activate(-1);
+            print("마이너스");
+        }
+    }
+
+    public void EnterStone(Stone _stone)
+    {
+        stoneCo = StartCoroutine(StoneCo(_stone));
+    }
+    public void ExitStone()
+    {
+        StopCoroutine(stoneCo);
+    }
+
+    public IEnumerator StoneCo(Stone _stone)
+    {
+        while (true)
+        {
+            ActivateStone(_stone);
+            yield return null;
+        }
+    }
+
+    //창귀와 충돌
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("충돌");
+        GameObject obj = collision.gameObject;
+        if (obj.CompareTag("Changgwi"))
+        {
+            pv.RPC("Attack", RpcTarget.All);
         }
     }
 
     [PunRPC]
-    void SetIsChanggwi(int actorNumber)
+    void Attack()
     {
-        Debug.Log("RPC SetIsChanggwi 호출됨. ActorNumber: " + actorNumber);
-        Player player = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber);
-        //모든 플레이어의 스프라이트 설정
-        int index = Random.Range(0, 5);
-        Sprite select = sprites[index];
-        playerSpriteRenderer.sprite = select;
-        role = "citizen";
-
-        // 만약 술래 역할이라면, 스프라이트 변경
-        if (player != null && player == photonView.Owner)
-        {
-            playerSpriteRenderer.sprite = sprites[5];
-            role = "changgwi";
-        }
-    }*/
+        Debug.Log("어택 실행");
+        manager.GetComponent<GameManager>().PlayerDead(gameObject);
+    }
 }
