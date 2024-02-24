@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
@@ -79,7 +80,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("04 . 방 입장 완료");
-        if (PhotonNetwork.IsMasterClient)
+        Scene scene = SceneManager.GetActiveScene();
+        if (PhotonNetwork.IsMasterClient && scene.name == "Main")
         {
             PhotonNetwork.LoadLevel("GamePlay");
         }

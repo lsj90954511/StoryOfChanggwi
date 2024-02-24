@@ -41,7 +41,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //마스터 플레이어에게만 시작 버튼 보이게 함
         if (Master() && PV.IsMine == true) startBtn.SetActive(true);
 
-        PV.RPC("SetPlayer", RpcTarget.AllViaServer);
+        PV.RPC("SetPlayer", RpcTarget.AllBuffered);
     }
 
     void Update()
@@ -68,7 +68,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (!started && showedMessage)
         {
-            
             PV.RPC("StartGame", RpcTarget.AllViaServer);
         }
         //playerUpdate();
@@ -94,7 +93,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        PV.RPC("SetPlayer", RpcTarget.AllViaServer);
+        PV.RPC("SetPlayer", RpcTarget.AllBuffered);
     }
 
     //Start라는 텍스트를 화면에 보여줌
