@@ -10,11 +10,14 @@ public class PickUp : MonoBehaviour
     bool isPickUp; // 픽업 가능한 상태 여부 저장
     bool isPlayerPlumExist; // 인벤토리 내에 PlayerPlum 아이템 존재 여부 저장
     GameObject pickUpItem; // 픽업 한 아이템의 게임 오브젝트 저장
+    PlayerStoneSpawn playerStoneSpawn;
+
 
     private void Awake()
     {
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
+        playerStoneSpawn = FindObjectOfType<PlayerStoneSpawn>();
     }
 
     private void Update()
@@ -27,6 +30,7 @@ public class PickUp : MonoBehaviour
             if (pickUpItem.name == "PlayerStone") // 픽업한 아이템이 PlayerStone 인 경우
             {
                 Debug.Log("봉인석 조각 획득");
+                playerStoneSpawn.FindStone(pickUpItem);
                 inventory.AddItem(new Item { itemType = Item.ItemType.PlayerStone, amount = 1 });
             }
             if (pickUpItem.name == "PlayerPlum") // 픽업한 아이템이 PlayerPlum 인 경우
