@@ -14,8 +14,8 @@ public class Inventory
     public Inventory()
     {
         itemList = new List<Item>();
-        AddItem(new Item { itemType = Item.ItemType.PlayerStone, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.PlayerPlum, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
+        //AddItem(new Item { itemType = Item.ItemType.PlayerPlum, amount = 1 });
     }
 
 
@@ -85,12 +85,12 @@ public class Inventory
     }
 
     // PlayerPlum 아이템 존재하는지 확인 함수
-    public bool IsPlayerPlumExist()
+    public bool IsPlayerItemExist()
     {
         int cnt = 0;
         foreach(Item item in itemList)
         {
-            if (item.itemType == Item.ItemType.PlayerPlum)
+            if (item.itemType == Item.ItemType.PlayerItem)
                 cnt++;
         }
         if (cnt > 0)

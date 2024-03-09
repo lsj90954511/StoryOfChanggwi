@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Changgwi
   - PlayerItem
+  - Item
   layers:
   - Default
   - TransparentFX
