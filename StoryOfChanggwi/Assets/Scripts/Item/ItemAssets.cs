@@ -12,7 +12,7 @@ public class ItemAssets : MonoBehaviour
         Instance = this;
     }
 
-    public Sprite playerStoneSprite;
-    public Sprite playerPlumSprite;
-    public Sprite monsterStoneSprite;
+    public Sprite playerItemSprite;
+    //public Sprite playerPlumSprite;
+    //public Sprite monsterStoneSprite;
 }

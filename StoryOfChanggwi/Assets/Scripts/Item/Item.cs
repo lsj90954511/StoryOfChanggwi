@@ -10,9 +10,9 @@ public class Item
 {
     public enum ItemType
     {
-        PlayerStone,
-        PlayerPlum,
-        MonsterStone
+        PlayerItem,
+        //PlayerPlum,
+        //MonsterStone
     }
 
     public ItemType itemType;
@@ -23,9 +23,9 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.PlayerStone: return ItemAssets.Instance.playerStoneSprite;
-            case ItemType.PlayerPlum: return ItemAssets.Instance.playerPlumSprite;
-            case ItemType.MonsterStone: return ItemAssets.Instance.monsterStoneSprite;
+            case ItemType.PlayerItem: return ItemAssets.Instance.playerItemSprite;
+            //case ItemType.PlayerPlum: return ItemAssets.Instance.playerPlumSprite;
+            //case ItemType.MonsterStone: return ItemAssets.Instance.monsterStoneSprite;
         }
     }
 
@@ -34,9 +34,9 @@ public class Item
         switch(itemType)
         {
             default :
-                case ItemType.PlayerStone:
-                case ItemType.PlayerPlum:
-                case ItemType.MonsterStone:
+                case ItemType.PlayerItem:
+                //case ItemType.PlayerPlum:
+                //case ItemType.MonsterStone:
                 return true;
         }
     }
