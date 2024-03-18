@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 // 인벤토리 : 아이템 추가 및 제거
-public class Inventory : MonoBehaviour
+public class Inventory
 {
     public event EventHandler OnItemListChanged;
 

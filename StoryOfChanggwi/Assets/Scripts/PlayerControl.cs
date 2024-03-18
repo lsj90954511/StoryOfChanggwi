@@ -11,7 +11,6 @@ public class PlayerControl : MonoBehaviour
     private PhotonView pv;
     public TMP_Text NicknameText;
     GameObject manager;
-    GameObject inventory;
 
     // 플레이어 움직임
     public float moveSpeed = 5.0f;
@@ -32,7 +31,6 @@ public class PlayerControl : MonoBehaviour
         rb = GetComponentInChildren<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         manager = GameObject.Find("GameManager");
-        //inventory = GameObject.
 
         //닉네임
         NicknameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
