@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // 플레이어 PickUp : 아이템 획득 및 사용
 public class PickUp : MonoBehaviour
@@ -15,6 +16,7 @@ public class PickUp : MonoBehaviour
 
     private void Awake()
     {
+        uiInventory = GameObject.Find("UI_Inventory").GetComponent<UI_Inventory>();
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
         playerItemSpawn = FindObjectOfType<PlayerItemSpawn>();
