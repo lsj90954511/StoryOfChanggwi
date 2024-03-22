@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class PlayerControl : MonoBehaviour
 
     // 봉인석
     private Coroutine stoneCo;
+
+    //파티클
+    //public ParticleSystem deathEffect;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -35,6 +40,13 @@ public class PlayerControl : MonoBehaviour
         //닉네임
         NicknameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
         NicknameText.color = pv.IsMine ? Color.green : Color.red;
+
+        if (pv.IsMine)
+        {
+            var CM = GameObject.Find("CMCamera").GetComponent<CinemachineVirtualCamera>();
+            CM.Follow = transform;
+            CM.LookAt = transform;
+        }
     }
 
     private void Update()
@@ -58,12 +70,6 @@ public class PlayerControl : MonoBehaviour
         }
         else
             animator.SetBool("IsWalk", false);
-
-        // 아이템 사용
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            // 추가
-        }
     }
 
     //방향 전환 RPC 함수
@@ -136,6 +142,9 @@ public class PlayerControl : MonoBehaviour
     void Attack()
     {
         Debug.Log("어택 실행");
+        //GetComponent<ParticleSystem>().Play();
+        //Vector3 hitPoint = transform.position;
+        //Destroy(Instantiate(deathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitPoint)), deathEffect.main.startLifetimeMultiplier);
         manager.GetComponent<GameManager>().PlayerDead(gameObject);
     }
 }

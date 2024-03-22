@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 // 플레이어 PickUp : 아이템 획득 및 사용
 public class PickUp : MonoBehaviour
@@ -13,6 +15,12 @@ public class PickUp : MonoBehaviour
     GameObject pickUpItem; // 픽업 한 아이템의 게임 오브젝트 저장
     PlayerItemSpawn playerItemSpawn;
 
+    private PhotonView PV;
+
+    //창귀감지
+    Transform target;
+    bool isAttackable = false;
+    Wander wander;
 
     private void Awake()
     {
@@ -20,6 +28,8 @@ public class PickUp : MonoBehaviour
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
         playerItemSpawn = FindObjectOfType<PlayerItemSpawn>();
+        wander = GameObject.Find("Changgwi").GetComponent<Wander>();
+        PV = GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -44,19 +54,35 @@ public class PickUp : MonoBehaviour
             */
         }
 
-        // Space 키 (아이템 사용) 를 누르면
-        if (Input.GetKeyDown(KeyCode.Space))
+        //창귀 감지
+        UpdateTarget();
+        if (target != null)
         {
-            isPlayerItemExist = inventory.IsPlayerItemExist();
-            if (isPlayerItemExist) // 인벤토리에 PlayerItem 아이템 있는 경우에만 RemoveItem 실행
+            // 아이템 사용
+            if (isAttackable && Input.GetKeyUp(KeyCode.Space))
             {
-                inventory.RemoveItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
-                // *********************창귀 체력 감소 함수 추가*************************
+                // 추가
+                isPlayerItemExist = inventory.IsPlayerItemExist();
+                if (isPlayerItemExist) // 인벤토리에 PlayerItem 아이템 있는 경우에만 RemoveItem 실행
+                {
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
+                    // *********************창귀 체력 감소 함수 추가*************************
+                    PV.RPC("Damaged", RpcTarget.All);
+                }
+
+                else
+                    Debug.Log("아이템이 존재하지 않습니다");
             }
-                
-            else
-                Debug.Log("아이템이 존재하지 않습니다");
         }
+        else
+        {
+            isAttackable = false;
+        }
+        // Space 키 (아이템 사용) 를 누르면
+        /*if (Input.GetKeyDown(KeyCode.Space))
+        {
+            
+        }*/
     }
 
     // 플레이어와 아이템 충돌처리
@@ -86,4 +112,37 @@ public class PickUp : MonoBehaviour
         }
     }
 
+    //창귀가 범위 내 있는지 감지
+    private void UpdateTarget()
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 2f);
+
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                if (cols[i].CompareTag("Changgwi"))
+                {
+                    isAttackable = true;
+                    target = cols[i].gameObject.transform;
+                }
+            }
+        }
+        else
+        {
+            target = null;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(this.transform.position, 1.5f);
+    }
+
+    [PunRPC]
+    private void Damaged()
+    {
+        wander.GetDamage(10);
+    }
 }

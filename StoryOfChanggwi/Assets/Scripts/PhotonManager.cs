@@ -54,6 +54,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("02 . 로비에 접속");
+
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)

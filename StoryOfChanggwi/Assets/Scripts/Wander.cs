@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class Wander : MonoBehaviour
 {
@@ -24,9 +26,40 @@ public class Wander : MonoBehaviour
     Vector3 endPosition;
     float currentAngle = 0;
 
+    private int hp; //hp
+    [SerializeField] private Slider hpBar;
+
+    public int Hp
+    {
+        get => hp;
+        private set => hp = Math.Clamp(value, 0, hp);
+    }
+
     private void Awake()
     {
+        hp = 100;
+        SetMaxHealth(hp);
         pv = GetComponent<PhotonView>();
+    }
+
+    public void SetMaxHealth(int health)
+    {
+        hpBar.maxValue = health;
+        hpBar.value = health;
+    }
+
+    //hp깎임.
+    public void GetDamage(int damage)
+    {
+        int getDamagedHp = Hp - damage;
+        Hp = getDamagedHp;
+        hpBar.value = Hp;
+    }
+
+    //hp 확인
+    public int getHp()
+    {
+        return Hp;
     }
 
     void Start()
@@ -42,6 +75,10 @@ public class Wander : MonoBehaviour
     void Update()
     {
         Debug.DrawLine(rb2d.position, endPosition, Color.red);
+        if (Hp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public IEnumerator WanderRoutine()
@@ -62,7 +99,7 @@ public class Wander : MonoBehaviour
 
     void ChooseNewEndPoint()
     {
-        currentAngle += Random.Range(0, 360);
+        currentAngle += UnityEngine.Random.Range(0, 360);
         currentAngle = Mathf.Repeat(currentAngle, 360);
         endPosition += Vector3FromAngle(currentAngle);
     }
