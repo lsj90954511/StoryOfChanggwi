@@ -14,8 +14,8 @@ public class Inventory
     public Inventory()
     {
         itemList = new List<Item>();
-        AddItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
+        //AddItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
+        //AddItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
         //AddItem(new Item { itemType = Item.ItemType.PlayerPlum, amount = 1 });
     }
 
