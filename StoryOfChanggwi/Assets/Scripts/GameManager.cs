@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     Wander wander;
 
     float timer;
-    bool dead = false;
+    int player_cnt;
 
     private int deadPlayer = 0;
 
@@ -46,13 +46,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         pv = GetComponent<PhotonView>();
         if (PhotonNetwork.IsMasterClient)
             CreatePlayer();
-        timer = 0.0f;
+        player_cnt = PhotonNetwork.CurrentRoom.PlayerCount;
     }
 
     void Update()
     {
         //패널 보여줌
-        if (PhotonNetwork.CurrentRoom.PlayerCount == deadPlayer)
+        if (player_cnt == deadPlayer)
         {
             ShowLosePanel();
         }
