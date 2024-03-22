@@ -9,6 +9,7 @@ using Photon.Realtime;
 public class PickUp : MonoBehaviour
 {
     [SerializeField] private UI_Inventory uiInventory;
+    [SerializeField] private Canvas uiCanvas;
     private Inventory inventory;
     bool isPickUp; // 픽업 가능한 상태 여부 저장
     bool isPlayerItemExist; // 인벤토리 내에 PlayerItem 아이템 존재 여부 저장
@@ -24,19 +25,34 @@ public class PickUp : MonoBehaviour
 
     private void Awake()
     {
-        uiInventory = GameObject.Find("UI_Inventory").GetComponent<UI_Inventory>();
+        ///////////uiInventory = GameObject.Find("UI_Inventory").GetComponent<UI_Inventory>();
+        //uiInventory = transform.GetChild(1).GetChild(0).gameObject;
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
         playerItemSpawn = FindObjectOfType<PlayerItemSpawn>();
         wander = GameObject.Find("Changgwi").GetComponent<Wander>();
         PV = GetComponent<PhotonView>();
+        if (!PV.IsMine)
+        {
+            uiCanvas.enabled = false;
+        }
     }
 
     private void Update()
     {
+        if (!PV.IsMine && PhotonNetwork.IsConnected)
+        {
+            Debug.Log("이즈마인 거짓");
+            return;
+        }
+            
+
+        if (Input.GetKeyDown(KeyCode.Z))
+            Debug.Log("z키만 누름");
         // 아이템을 픽업 가능한 상태에서 Z 키를 누르면
         if (isPickUp && Input.GetKeyDown(KeyCode.Z))
         {
+            Debug.Log("z누름");
             // 픽업한 아이템의 게임 오브젝트 비활성화
             pickUpItem.SetActive(false);
             if (pickUpItem.name == "PlayerItem") // 픽업한 아이템이 PlayerStone 인 경우
@@ -89,9 +105,11 @@ public class PickUp : MonoBehaviour
     // 플레이어와 아이템 충돌처리
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log("아이템 충돌 " + "태그 : " + collider.tag);
         if(collider.tag.Equals("Item"))
         {
             isPickUp = true;
+            Debug.Log("isPickUp : " + isPickUp + "  아이템 이름 : " + collider.gameObject.name);
             if(collider.gameObject.name == "PlayerItem")
             {
                 pickUpItem = collider.gameObject;
