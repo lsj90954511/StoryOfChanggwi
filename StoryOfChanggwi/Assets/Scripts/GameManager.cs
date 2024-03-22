@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
             CreatePlayer();
         player_cnt = PhotonNetwork.CurrentRoom.PlayerCount;
+        Debug.Log("플레이어 수 : " + player_cnt);
+        deadPlayer = 0;
     }
 
     void Update()
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //패널 보여줌
         if (player_cnt == deadPlayer)
         {
+            Debug.Log("P_cnt : " + player_cnt + " deadP : " + deadPlayer);
             ShowLosePanel();
         }
 

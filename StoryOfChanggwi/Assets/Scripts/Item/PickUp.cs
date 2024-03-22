@@ -44,6 +44,7 @@ public class PickUp : MonoBehaviour
                 Debug.Log("주술 재료 획득");
                 playerItemSpawn.FindStone(pickUpItem);
                 inventory.AddItem(new Item { itemType = Item.ItemType.PlayerItem, amount = 1 });
+                Debug.Log("획득완료");
             }
             /*
             if (pickUpItem.name == "PlayerPlum") // 픽업한 아이템이 PlayerPlum 인 경우
