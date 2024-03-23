@@ -17,6 +17,8 @@ public class UI_Inventory : MonoBehaviour
         // UI_Canvas 내 itemSlotContainer와 itemSlotTemplate 찾기
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
+        Debug.Log("슬롯컨테이너 : " + itemSlotContainer);
+        Debug.Log("슬롯템플릿 : " + itemSlotTemplate);
     }
 
     // UIInventory set
@@ -39,11 +41,16 @@ public class UI_Inventory : MonoBehaviour
     private void RefreshInventoryItems()
     {
         // itemSlotContainer의 자식(Clone) 제거
-        foreach (Transform child in itemSlotContainer)
+        //////////////////if문 원래 없었음
+        if (itemSlotContainer != null)
         {
-            if (child == itemSlotTemplate) continue;
-            Destroy(child.gameObject);
+            foreach (Transform child in itemSlotContainer)
+            {
+                if (child == itemSlotTemplate) continue;
+                Destroy(child.gameObject);
+            }
         }
+        
 
         int x = 0; // x위치
         float itemSlotCellSize = 160f; // itemSlotCell 크기

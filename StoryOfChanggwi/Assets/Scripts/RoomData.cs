@@ -23,8 +23,11 @@ public class RoomData : MonoBehaviour
         {
             _roomInfo = value;
             RoomInfoText.text = $"{_roomInfo.Name} ({_roomInfo.PlayerCount}/{_roomInfo.MaxPlayers})";
+            if (!_roomInfo.IsOpen)
+                RoomInfoText.text += "(Playing)";
             //버튼 클릭 이벤트에 함수 연결
-            GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnEnterRoom(_roomInfo.Name));
+            if (_roomInfo.IsOpen)
+                GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnEnterRoom(_roomInfo.Name));
         }
     }
 

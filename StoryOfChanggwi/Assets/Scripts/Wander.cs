@@ -40,6 +40,7 @@ public class Wander : MonoBehaviour
         hp = 100;
         SetMaxHealth(hp);
         pv = GetComponent<PhotonView>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void SetMaxHealth(int health)
