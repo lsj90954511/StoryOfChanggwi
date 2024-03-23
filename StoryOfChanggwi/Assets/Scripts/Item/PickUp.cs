@@ -42,7 +42,6 @@ public class PickUp : MonoBehaviour
     {
         if (!PV.IsMine && PhotonNetwork.IsConnected)
         {
-            Debug.Log("이즈마인 거짓");
             return;
         }
             

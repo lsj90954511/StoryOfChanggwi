@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         player_cnt = PhotonNetwork.CurrentRoom.PlayerCount;
         Debug.Log("플레이어 수 : " + player_cnt);
         deadPlayer = 0;
+
+        leavePanel.SetActive(false);
     }
 
     void Update()
@@ -101,12 +103,23 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void EndGame()
     {
-        leavePanel.SetActive(false);
+        if (leavePanel != null)
+            leavePanel.SetActive(false);
+        deadPlayer = 0;
+        //자기 플레이어 객체 삭제
+        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
         PhotonNetwork.LeaveRoom();
     }
 
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene("Main");
+        Destroy(gameObject);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        // 다른 플레이어의 네트워크 객체 삭제
+        PhotonNetwork.DestroyPlayerObjects(otherPlayer);
     }
 }

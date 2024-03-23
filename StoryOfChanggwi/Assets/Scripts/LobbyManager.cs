@@ -42,6 +42,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Master() && PV.IsMine == true) startBtn.SetActive(true);
 
         PV.RPC("SetPlayer", RpcTarget.AllBuffered);
+
+        lobbyUI.SetActive(true);
     }
 
     void Update()
@@ -76,6 +78,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void ClickStartBtn()
     {
         started = true;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
     }
 
     public void playerUpdate()
